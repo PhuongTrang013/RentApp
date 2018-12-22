@@ -2,95 +2,104 @@ package com.example.dell.rentapp;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
 @IgnoreExtraProperties
-public class Room {
-    private String diachi;
-    private String dienthoai;
-    private String dientich;
-    private String ghichu;
-    private String gia;
-    private String hinhanh;
-    private String tienich;
+public class Room implements Serializable {
+    private String Diachi;
+    private String Dienthoai;
+    private String Dientich;
+    private String Ghichu;
+    private String Gia;
+    private String Hinhanh;
+    private String Ten;
+    private String Tienich;
 
-    public Room() {
-    }
-
-    public Room(String diachi, String dienthoai, String dientich, String ghichu, String gia, String hinhanh, String tienich) {
-        this.diachi = diachi;
-        this.dienthoai = dienthoai;
-        this.dientich = dientich;
-        this.ghichu = ghichu;
-        this.gia = gia;
-        this.hinhanh = hinhanh;
-        this.tienich = tienich;
+    public Room(String diachi, String dienthoai, String dientich, String ghichu, String gia, String hinhanh, String ten, String tienich) {
+        Diachi = diachi;
+        Dienthoai = dienthoai;
+        Dientich = dientich;
+        Ghichu = ghichu;
+        Gia = gia;
+        Hinhanh = hinhanh;
+        Ten = ten;
+        Tienich = tienich;
     }
 
     public String getDiachi() {
-        return diachi;
+        return Diachi;
     }
 
     public void setDiachi(String diachi) {
-        this.diachi = diachi;
+        Diachi = diachi;
     }
 
     public String getDienthoai() {
-        return dienthoai;
+        return Dienthoai;
     }
 
     public void setDienthoai(String dienthoai) {
-        this.dienthoai = dienthoai;
+        Dienthoai = dienthoai;
     }
 
     public String getDientich() {
-        return dientich;
+        return Dientich;
     }
 
     public void setDientich(String dientich) {
-        this.dientich = dientich;
+        Dientich = dientich;
     }
 
     public String getGhichu() {
-        return ghichu;
+        return Ghichu;
     }
 
     public void setGhichu(String ghichu) {
-        this.ghichu = ghichu;
+        Ghichu = ghichu;
     }
 
     public String getGia() {
-        return gia;
+        return Gia;
     }
 
     public void setGia(String gia) {
-        this.gia = gia;
+        Gia = gia;
     }
 
     public String getHinhanh() {
-        return hinhanh;
+        return Hinhanh;
     }
 
     public void setHinhanh(String hinhanh) {
-        this.hinhanh = hinhanh;
+        Hinhanh = hinhanh;
+    }
+
+    public String getTen() {
+        return Ten;
+    }
+
+    public void setTen(String ten) {
+        Ten = ten;
     }
 
     public String getTienich() {
-        return tienich;
+        return Tienich;
     }
 
     public void setTienich(String tienich) {
-        this.tienich = tienich;
+        Tienich = tienich;
     }
 
     @Override
     public String toString() {
-        return "Room{" +
-                "diachi='" + diachi + '\'' +
-                ", dienthoai='" + dienthoai + '\'' +
-                ", dientich='" + dientich + '\'' +
-                ", ghichu='" + ghichu + '\'' +
-                ", gia='" + gia + '\'' +
-                ", hinhanh='" + hinhanh + '\'' +
-                ", tienich='" + tienich + '\'' +
-                '}';
+        return "" +
+                "Ten'" + Ten + '\n' +
+                "Diachi:'" + Diachi + '\n' +
+                "Dienthoai:'" + Dienthoai + '\n' +
+                "Dientich:'" + Dientich + '\n' +
+                "Ghichu='" + Ghichu + '\n' +
+                "Tienich='" + Tienich + '\n';
     }
+
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RentApp</string>
+    <string name="title_activity_room_detail">RoomDetail</string>
+    <string name="title_activity_contact">Contact</string>
 </resources>

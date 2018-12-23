@@ -36,4 +36,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDT"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="391dp"
+        android:layout_toRightOf="@id/imageViewHinh"
+        android:text="Edit" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDT"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="391dp"
+        android:layout_toRightOf="@id/imageViewHinh"
+        android:text="Delete" />
+
 </RelativeLayout>

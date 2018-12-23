@@ -2,4 +2,7 @@
     <string name="app_name">RentApp</string>
     <string name="title_activity_room_detail">RoomDetail</string>
     <string name="title_activity_contact">Contact</string>
+    <string name="title_activity_post">PostActivity</string>
+    <string name="title_activity_log_in">LogInActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>

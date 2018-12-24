@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,13 +53,14 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dangbai(edittext1.getText().toString(),edittext2.getText().toString(),edittext3.getText().toString(),edittext4.getText().toString(),
                         edittext5.getText().toString(),edittext6.getText().toString(),edittext7.getText().toString(),edittext8.getText().toString(),false);
+                Toast.makeText(PostActivity.this, "Đăng thành công", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

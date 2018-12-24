@@ -106,16 +106,14 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "diachi='" + diachi + '\'' +
-                ", dienthoai='" + dienthoai + '\'' +
-                ", dientich='" + dientich + '\'' +
-                ", ghichu='" + ghichu + '\'' +
-                ", gia='" + gia + '\'' +
-                ", hinhanh='" + hinhanh + '\'' +
-                ", ten='" + ten + '\'' +
-                ", tienich='" + tienich + '\'' +
-                ", trangthai=" + trangthai +
-                '}';
+        return "Thông tin : \n" +
+                "Địa chỉ: " + diachi + '\n' +
+                "Số Điện Thoại: " + dienthoai + '\n' +
+                "Diện tích: " + dientich + '\n' +
+                "Ghi chú: " + ghichu + '\n' +
+                "Giá: " + gia + '\n' +
+                "Tên: " + ten + '\n' +
+                "Tiện ích: " + tienich + '\n'
+                ;
     }
 }

@@ -66,10 +66,10 @@ public class RoomDetail extends AppCompatActivity {
         Intent i = getIntent();
         Room roomDetail = (Room)i.getSerializableExtra("data");
         txtTen.setText(roomDetail.getTen());
-        txtGia.setText(roomDetail.getGia() + " /tháng");
-        txtDC.setText(roomDetail.getDiachi());
+        txtGia.setText("");
+        txtDC.setText("");
         txtDesc.setText(roomDetail.toString());
-        txtDT.setText(roomDetail.getDientich());
+        txtDT.setText("");
         imgDetail.setImageResource(R.drawable.draw);
         key = getIntent().getStringExtra("keynha");
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -87,15 +87,13 @@ public class RoomDetail extends AppCompatActivity {
             public void onClick(View v) {
                 mData.child("Chitietnha").child(key).removeValue();
                 Toast.makeText(RoomDetail.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                Intent in = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(in);
+                finish();
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(in);
+                finish();
             }
         });
     }

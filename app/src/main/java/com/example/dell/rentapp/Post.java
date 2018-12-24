@@ -9,12 +9,12 @@ public class Post {
     private String gia;
     private String ghichu;
     private String dienthoai;
-
+    private boolean trangthai;
 
     public Post() {
     }
 
-    public Post(String tennha, String diachi, String dientich, String tienich, String hinhanh, String gia, String ghichu, String dienthoai) {
+    public Post(String tennha, String diachi, String dientich, String tienich, String hinhanh, String gia, String ghichu, String dienthoai, boolean trangthai) {
         this.tennha = tennha;
         this.diachi = diachi;
         this.dientich = dientich;
@@ -23,6 +23,7 @@ public class Post {
         this.gia = gia;
         this.ghichu = ghichu;
         this.dienthoai = dienthoai;
+        this.trangthai = trangthai;
     }
 
     public String getTennha() {
@@ -87,5 +88,13 @@ public class Post {
 
     public void setDienthoai(String dienthoai) {
         this.dienthoai = dienthoai;
+    }
+
+    public boolean isTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(boolean trangthai) {
+        this.trangthai = trangthai;
     }
 }

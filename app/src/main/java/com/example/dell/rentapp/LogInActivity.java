@@ -52,7 +52,7 @@ public class LogInActivity extends AppCompatActivity {
         mdbase.child("Taikhoan").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                listAcc.add( new Account(dataSnapshot.child("username").getValue().toString(),dataSnapshot.child("password").getValue().toString(),Boolean.parseBoolean(dataSnapshot.child("status").getValue().toString())));
+                listAcc.add( new Account(dataSnapshot.child("username").getValue().toString(),dataSnapshot.child("password").getValue().toString(),Boolean.parseBoolean(dataSnapshot.child("status").getValue().toString()),dataSnapshot.child("name").getValue().toString(),dataSnapshot.child("phone").getValue().toString(),dataSnapshot.child("address").getValue().toString()));
 
             }
 

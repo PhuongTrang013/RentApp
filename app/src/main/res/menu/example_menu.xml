@@ -7,12 +7,17 @@
         />
 
     <item android:id="@+id/item5"
-        android:title="Tài Khoản"
+        android:title="Cập nhật tài khoản"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/item6"
+        android:title="Đăng nhà"
         app:showAsAction="never"
         />
 
     <item android:id="@+id/item2"
-        android:title="Danh Sách"
+        android:title="Danh sách tài khoản"
         app:showAsAction="never"
         />
 
@@ -21,8 +26,12 @@
         app:showAsAction="never"
         />
 
-    <item android:id="@+id/item4"
-        android:title="Đăng Xuất"
-        app:showAsAction="never"
-        />
+    <item
+        android:id="@+id/item7"
+        android:title="Thống kê"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item4"
+        android:title="Đăng xuất"
+        app:showAsAction="never" />
 </menu>

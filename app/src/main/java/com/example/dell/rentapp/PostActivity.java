@@ -51,7 +51,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dangbai(edittext1.getText().toString(),edittext2.getText().toString(),edittext3.getText().toString(),edittext4.getText().toString(),
-                        edittext5.getText().toString(),edittext6.getText().toString(),edittext7.getText().toString(),edittext8.getText().toString());
+                        edittext5.getText().toString(),edittext6.getText().toString(),edittext7.getText().toString(),edittext8.getText().toString(),false);
             }
         });
         button1.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +63,9 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-    private void dangbai(String tennha, String diachi, String dientich, String tienich, String gia, String ghichu, String dienthoai,String hinhanh) {
+    private void dangbai(String tennha, String diachi, String dientich, String tienich, String gia, String ghichu, String dienthoai,String hinhanh, boolean stt) {
         String key = mData.child("post").push().getKey();
-        Post post = new Post(tennha,diachi,tienich,dientich,gia,ghichu,dienthoai,hinhanh);
+        Post post = new Post(tennha,diachi,tienich,dientich,gia,ghichu,dienthoai,hinhanh,stt);
         mData = FirebaseDatabase.getInstance().getReference("Chitietnha");
         mData.child(key).setValue(post);
     }

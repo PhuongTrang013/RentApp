@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,20 +44,20 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem item3;
     private MenuItem item4;
     private MenuItem item5;
-//    private Button btn4;
     protected Room room;
-
+    private SearchView btnSearch;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         listRoom = new ArrayList<>();
         txtres = (TextView)findViewById(R.id.txtRes);
         listView = (ListView)findViewById(R.id.listView);
+        btnSearch = (SearchView)findViewById(R.id.txtSearch);
 
         mdb = FirebaseDatabase.getInstance().getReference();
 //        final String keyID = mdb.push().getKey();
@@ -64,26 +65,70 @@ public class MainActivity extends AppCompatActivity {
         roomListAdapter = new RoomListAdapter(this, R.layout.room_list, listRoom);
         listView.setAdapter(roomListAdapter);
         addDatatoListView();
-//        btn4 = (Button)findViewById(R.id.button4);
-//        btn4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mdb.child(keyID).removeValue();
-//            }
-//        });
 
+        btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mdb.child("Chitietnha").orderByChild("tennha").equalTo(query).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listRoom.clear();
+                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()){
+                            listRoom.add(new Room(
+                                    childSnapshot.child("diachi").getValue().toString(),
+                                    childSnapshot.child("dienthoai").getValue().toString(),
+                                    childSnapshot.child("dientich").getValue().toString(),
+                                    childSnapshot.child("ghichu").getValue().toString(),
+                                    childSnapshot.child("gia").getValue().toString(),
+                                    childSnapshot.child("hinhanh").getValue().toString(),
+                                    childSnapshot.child("tennha").getValue().toString(),
+                                    childSnapshot.child("tienich").getValue().toString(),
+                                    Boolean.parseBoolean(childSnapshot.child("tienich").getValue().toString())
+                            ));
+                            roomListAdapter.notifyDataSetChanged();
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //              setContentView(R.layout.content_room_detail);
-                Intent intent = new Intent(MainActivity.this, RoomDetail.class);
+                intent = new Intent(MainActivity.this, RoomDetail.class);
                 numbertoDetail = (Room) listRoom.get(position);
                 intent.putExtra("data", numbertoDetail);
-                startActivity(intent);
+                intent.putExtra("check", getIntent().getStringExtra("user"));
+                mdb.child("Chitietnha").orderByChild("tennha").equalTo(numbertoDetail.getTen()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                            String key = childSnapshot.getKey();
+//                            Toast.makeText(MainActivity.this, key, Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getBaseContext(), InfoAccountActivity.class);
+                            intent.putExtra("keynha", key);
+                            startActivity(intent);
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+//                startActivity(intent);
             }
         });
 
@@ -93,22 +138,44 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);
-        return  true;
+        return true;
     }
 
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         if(getIntent().getStringExtra("user") != null){
-            MenuItem registrar = menu.findItem(R.id.item1);
-            registrar.setVisible(false);
-            MenuItem registrar1 = menu.findItem(R.id.item2);
-            registrar1.setVisible(true);
-            MenuItem registrar2 = menu.findItem(R.id.item3);
-            registrar2.setVisible(true);
-            MenuItem registrar3 = menu.findItem(R.id.item4);
-            registrar3.setVisible(true);
-            MenuItem registrar4 = menu.findItem(R.id.item5);
-            registrar4.setVisible(true);
+            if(getIntent().getStringExtra("user").equals("Admin")){
+                MenuItem registrar = menu.findItem(R.id.item1);
+                registrar.setVisible(false);
+                MenuItem registrar1 = menu.findItem(R.id.item2);
+                registrar1.setVisible(true);
+                MenuItem registrar2 = menu.findItem(R.id.item3);
+                registrar2.setVisible(true);
+                MenuItem registrar3 = menu.findItem(R.id.item4);
+                registrar3.setVisible(true);
+                MenuItem registrar4 = menu.findItem(R.id.item5);
+                registrar4.setVisible(true);
+                MenuItem registrar5 = menu.findItem(R.id.item6);
+                registrar5.setVisible(false);
+                MenuItem registrar6 = menu.findItem(R.id.item7);
+                registrar6.setVisible(true);
+            }else{
+                MenuItem registrar = menu.findItem(R.id.item1);
+                registrar.setVisible(false);
+                MenuItem registrar1 = menu.findItem(R.id.item2);
+                registrar1.setVisible(false);
+                MenuItem registrar2 = menu.findItem(R.id.item3);
+                registrar2.setVisible(true);
+                MenuItem registrar3 = menu.findItem(R.id.item4);
+                registrar3.setVisible(true);
+                MenuItem registrar4 = menu.findItem(R.id.item5);
+                registrar4.setVisible(true);
+                MenuItem registrar5 = menu.findItem(R.id.item6);
+                registrar5.setVisible(true);
+                MenuItem registrar6 = menu.findItem(R.id.item7);
+                registrar6.setVisible(false);
+            }
+
         }else {
             MenuItem registrar = menu.findItem(R.id.item1);
             registrar.setVisible(true);
@@ -120,6 +187,10 @@ public class MainActivity extends AppCompatActivity {
             registrar3.setVisible(false);
             MenuItem registrar4 = menu.findItem(R.id.item5);
             registrar4.setVisible(false);
+            MenuItem registrar5 = menu.findItem(R.id.item6);
+            registrar5.setVisible(false);
+            MenuItem registrar6 = menu.findItem(R.id.item7);
+            registrar6.setVisible(false);
         }
 
         return true;
@@ -133,10 +204,42 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "Item2 selected", Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainActivity.this, ActiveAccountActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.item3:
+                Toast.makeText(MainActivity.this, "Email nhóm: izziteam2019@gmail.com \n SĐT: 0985875471", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item4:
                 intent = new Intent(MainActivity.this, LogInActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.item5:
+
+                mdb.child("Taikhoan").orderByChild("username").equalTo(getIntent().getStringExtra("user")).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                            String key = childSnapshot.getKey();
+//                            Toast.makeText(MainActivity.this, key, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getBaseContext(), InfoAccountActivity.class);
+                            intent.putExtra("key", key);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                return true;
+            case R.id.item6:
+                intent = new Intent(MainActivity.this, PostActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.item7:
+                intent = new Intent(MainActivity.this, LogictisActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -145,18 +248,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDatatoListView() {
-        mdb.child("Chitietnha").addChildEventListener(new ChildEventListener() {
+        mdb.child("Chitietnha").orderByChild("trangthai").equalTo(false).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 listRoom.add(new Room(
-                        dataSnapshot.child("Diachi").getValue().toString(),
-                        dataSnapshot.child("Dienthoai").getValue().toString(),
-                        dataSnapshot.child("Dientich").getValue().toString(),
-                        dataSnapshot.child("Ghichu").getValue().toString(),
-                        dataSnapshot.child("Gia").getValue().toString(),
-                        dataSnapshot.child("Hinhanh").getValue().toString(),
-                        dataSnapshot.child("Ten").getValue().toString(),
-                        dataSnapshot.child("Tienich").getValue().toString()
+                        dataSnapshot.child("diachi").getValue().toString(),
+                        dataSnapshot.child("dienthoai").getValue().toString(),
+                        dataSnapshot.child("dientich").getValue().toString(),
+                        dataSnapshot.child("ghichu").getValue().toString(),
+                        dataSnapshot.child("gia").getValue().toString(),
+                        dataSnapshot.child("hinhanh").getValue().toString(),
+                        dataSnapshot.child("tennha").getValue().toString(),
+                        dataSnapshot.child("tienich").getValue().toString(),
+                        Boolean.parseBoolean(dataSnapshot.child("tienich").getValue().toString())
                         ));
                 roomListAdapter.notifyDataSetChanged();
             }

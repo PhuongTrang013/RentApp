@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userID = mdb.push().getKey();
 
-                Account acc = new Account(txtUser.getText().toString(),txtPass.getText().toString(), false);
+                Account acc = new Account(txtUser.getText().toString(),txtPass.getText().toString(), false, "", "", "");
                 mdb.child(userID).setValue(acc);
                 txtMeesage.setText("Đăng ký thành công");
                 startActivity(intent);
